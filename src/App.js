@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {connect} from "react-redux";
+import NewNote from "./Components/NewNote.js";
+import Notes from "./Components/Notes.js";
+import {createUseStyles} from "react-jss";
+import {addNote} from "./actions/addNote.js";
+import {deleteNote} from "./actions/deleteNote.js";
 
-function App() {
+const useStyles = createUseStyles({
+  wrapper: {
+    display: "grid",
+    padding: "30px",
+    gridTemplateRows: "1fr 4fr",
+    height: "100vh"
+  }
+});
+function App(props) {
+  console.log("appsss", props);
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.wrapper}>
+      {NewNote(props)}
+      {Notes(props)}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    notes: state.notesReducer.notes
+  };
+};
+
+const mapDispatchToProps = {
+  addNote: addNote,
+  deleteNote: deleteNote
+};
+
+export const Container = connect(mapStateToProps, mapDispatchToProps)(App);
