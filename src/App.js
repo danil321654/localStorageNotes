@@ -3,8 +3,10 @@ import {connect} from "react-redux";
 import NewNote from "./Components/NewNote.js";
 import Notes from "./Components/Notes.js";
 import {createUseStyles} from "react-jss";
+
 import {addNote} from "./actions/addNote.js";
 import {deleteNote} from "./actions/deleteNote.js";
+import {appearNote} from "./actions/appearNote.js";
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -33,7 +35,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   addNote: addNote,
-  deleteNote: deleteNote
+  deleteNote: deleteNote,
+  appearNote: appearNote
 };
 
 export const Container = connect(mapStateToProps, mapDispatchToProps)(App);

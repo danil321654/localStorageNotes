@@ -28,7 +28,8 @@ function Notes(props) {
         noteStatus={el.noteStatus}
         text={el.text}
         deleteNote={props.deleteNote}
-        last={idx == props.notes.length - 1 ? true : false}
+        appearNote={props.appearNote}
+        appearAnim={el.appeared ? false : true}
       />
     ) : (
       ""

@@ -5,7 +5,6 @@ import fontawesome from "@fortawesome/fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {store} from "./../store.js";
 import {createUseStyles} from "react-jss";
-
 const useStyles = createUseStyles({
   note: {
     display: "flex",
@@ -61,10 +60,12 @@ function Note(props) {
     setTimeout(() => props.deleteNote(props.noteId), 500);
   };
   console.log("noteprops", props);
+
+  setTimeout(() => props.appearNote(props.noteId), 700);
   return (
     <div
       className={
-        props.last ? classes.note + " " + classes.appearing : classes.note + ""
+        props.appearAnim ? classes.note + " " + classes.appearing : classes.note + ""
       }
       id={"note" + props.noteId}
     >
