@@ -16,12 +16,12 @@ const useStyles = createUseStyles({
     width: "min-content",
     maxWidth: "350px",
     height: "min-content",
-    margin: '10px'
+    margin: "10px"
   },
   noteText: {
     flexGrow: "1",
-    wordWrap: 'break-word',
-    padding: "0 10px 10px 10px",
+    wordWrap: "break-word",
+    padding: "0 10px 10px 10px"
   },
   noteButton: {
     minWidth: "30px !important",
@@ -37,7 +37,7 @@ const useStyles = createUseStyles({
     to: {transform: "scale(0.5)", opacity: "0"}
   },
   dissapearing: {
-    animation: "$disappear 0.5s ease-in-out 1"
+    animation: "$disappear 0.6s ease-in-out 1"
   },
   "@keyframes appear": {
     from: {transform: "scale(0.1)", opacity: "100"},
@@ -61,11 +61,13 @@ function Note(props) {
   };
   console.log("noteprops", props);
 
-  setTimeout(() => props.appearNote(props.noteId), 700);
+  if (props.appearAnim) setTimeout(() => props.appearNote(props.noteId), 700);
   return (
     <div
       className={
-        props.appearAnim ? classes.note + " " + classes.appearing : classes.note + ""
+        props.appearAnim
+          ? classes.note + " " + classes.appearing
+          : classes.note + ""
       }
       id={"note" + props.noteId}
     >

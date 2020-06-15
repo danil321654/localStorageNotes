@@ -21,8 +21,8 @@ function App(props) {
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>
-      {NewNote(props)}
-      {Notes(props)}
+      <NewNote addNote={props.addNote}/>
+      <Notes deleteNote={props.deleteNote} appearNote={props.appearNote} notes={props.notes}/>
     </div>
   );
 }

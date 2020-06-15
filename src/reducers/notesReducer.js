@@ -1,4 +1,4 @@
-//localStorage.clear();
+//localStorage.clear()
 
 let initialNotes = JSON.parse(localStorage.getItem("notes")) || [];
 
@@ -17,7 +17,6 @@ export const notesReducer = (state = {notes: [...initialNotes]}, action) => {
           }
         ]
       });
-      localStorage.removeItem("notes");
       localStorage.setItem("notes", JSON.stringify(newState.notes));
       return newState;
       break;
@@ -29,9 +28,9 @@ export const notesReducer = (state = {notes: [...initialNotes]}, action) => {
             : el
         )
       });
-      localStorage.removeItem("notes");
       localStorage.setItem("notes", JSON.stringify(newState.notes));
       return newState;
+      break;
     case "APPEAR_NOTE":
       newState = Object.assign({}, state, {
         notes: state.notes.map(el =>
@@ -40,11 +39,10 @@ export const notesReducer = (state = {notes: [...initialNotes]}, action) => {
             : el
         )
       });
-      localStorage.removeItem("notes");
       localStorage.setItem("notes", JSON.stringify(newState.notes));
       return newState;
       break;
     default:
-      return state;
+      return newState;
   }
 };
