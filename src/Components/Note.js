@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button} from "@material-ui/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import fontawesome from "@fortawesome/fontawesome";
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faTrash, faEdit} from "@fortawesome/free-solid-svg-icons";
+import {faEdit as farEdit} from "@fortawesome/free-regular-svg-icons";
 import {store} from "./../store.js";
 import {createUseStyles} from "react-jss";
+import marked from "marked";
+
 const useStyles = createUseStyles({
   note: {
     display: "flex",
@@ -13,10 +16,18 @@ const useStyles = createUseStyles({
     borderRadius: "5px",
     border: "2px solid rgba(53, 59, 64, 0.66)",
     boxShadow: "5px 5px 10px gray",
-    width: "min-content",
+    width: "max-content",
     maxWidth: "350px",
     height: "min-content",
     margin: "10px"
+  },
+  noteTextArea: {
+    border: "none",
+    minWidth: "min-content",
+    width: "max-content",
+    maxWidth: "350px",
+    height: "min-content",
+    margin: "0"
   },
   noteText: {
     flexGrow: "1",
@@ -48,16 +59,25 @@ const useStyles = createUseStyles({
   }
 });
 
-fontawesome.library.add(faTrash);
+fontawesome.library.add(faTrash, faEdit);
 
 function Note(props) {
   //const like = () => store.dispatch(likeNote(props.noteId));
+  const [isEditing, editing] = useState(false);
+  const [text, textChange] = useState(props.text);
   const classes = useStyles();
   console.log(props.last);
   const del = () => {
     document.querySelector("#note" + props.noteId).className +=
       " " + classes.dissapearing;
     setTimeout(() => props.deleteNote(props.noteId), 500);
+  };
+  const edit = e => {
+    if (isEditing) props.editNote(props.noteId, text);
+    editing(!isEditing);
+  };
+  const handleEdit = e => {
+    textChange(e.target.value);
   };
   console.log("noteprops", props);
 
@@ -72,11 +92,25 @@ function Note(props) {
       id={"note" + props.noteId}
     >
       <div className={classes.postHeader}>
+        <Button classes={{root: classes.noteButton}} onClick={edit}>
+          <FontAwesomeIcon icon="edit" />{" "}
+        </Button>
         <Button classes={{root: classes.noteButton}} onClick={del}>
           <FontAwesomeIcon icon="trash" />{" "}
         </Button>
       </div>
-      <div className={classes.noteText}>{props.text}</div>
+      {isEditing ? (
+        <textarea
+          className={classes.noteTextArea}
+          value={text}
+          onChange={handleEdit}
+        />
+      ) : (
+        <div
+          className={classes.noteText}
+          dangerouslySetInnerHTML={{__html: marked(text)}}
+        />
+      )}
     </div>
   );
 }

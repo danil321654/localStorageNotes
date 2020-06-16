@@ -1,21 +1,15 @@
 import React from "react";
-import {Button} from "@material-ui/core";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import fontawesome from "@fortawesome/fontawesome";
-import {faTrash, faHeart} from "@fortawesome/free-solid-svg-icons";
-import {faHeart as farHeart} from "@fortawesome/free-regular-svg-icons";
 import Note from "./Note.js";
 import {createUseStyles} from "react-jss";
+import marked from "marked";
 
 const useStyles = createUseStyles({
   notes: {
     display: "flex",
-    flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexDirection: "row",
+    flexWrap: "wrap"
   }
 });
-
-fontawesome.library.add(faTrash, faHeart, farHeart);
 
 function Notes(props) {
   console.log("notesss", props);
@@ -28,6 +22,7 @@ function Notes(props) {
         noteStatus={el.noteStatus}
         text={el.text}
         deleteNote={props.deleteNote}
+        editNote={props.editNote}
         appearNote={props.appearNote}
         appearAnim={el.appeared ? false : true}
       />
@@ -35,6 +30,7 @@ function Notes(props) {
       ""
     )
   );
+
   return <div className={classes.notes}>{notesList}</div>;
 }
 

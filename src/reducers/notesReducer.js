@@ -42,6 +42,17 @@ export const notesReducer = (state = {notes: [...initialNotes]}, action) => {
       localStorage.setItem("notes", JSON.stringify(newState.notes));
       return newState;
       break;
+    case "EDIT_NOTE":
+      newState = Object.assign({}, state, {
+        notes: state.notes.map(el =>
+          el.noteId == action.noteId
+            ? Object.assign({}, el, {text: action.text})
+            : el
+        )
+      });
+      localStorage.setItem("notes", JSON.stringify(newState.notes));
+      return newState;
+      break;
     default:
       return newState;
   }

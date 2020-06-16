@@ -6,6 +6,7 @@ import {createUseStyles} from "react-jss";
 
 import {addNote} from "./actions/addNote.js";
 import {deleteNote} from "./actions/deleteNote.js";
+import {editNote} from "./actions/editNote.js";
 import {appearNote} from "./actions/appearNote.js";
 
 const useStyles = createUseStyles({
@@ -22,7 +23,7 @@ function App(props) {
   return (
     <div className={classes.wrapper}>
       <NewNote addNote={props.addNote}/>
-      <Notes deleteNote={props.deleteNote} appearNote={props.appearNote} notes={props.notes}/>
+      <Notes deleteNote={props.deleteNote} editNote={props.editNote} appearNote={props.appearNote} notes={props.notes}/>
     </div>
   );
 }
@@ -36,7 +37,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   addNote: addNote,
   deleteNote: deleteNote,
-  appearNote: appearNote
+  appearNote: appearNote,
+  editNote: editNote
 };
 
 export const Container = connect(mapStateToProps, mapDispatchToProps)(App);
